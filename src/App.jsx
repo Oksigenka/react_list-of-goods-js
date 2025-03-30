@@ -15,25 +15,22 @@ export const goodsFromServer = [
   'Garlic',
 ];
 
-function getPreparedGoods(
-  goods,
-  { sortedByAlphabet, reversed, sortedByLength },
-) {
-  const preparedGoods = [...goods];
+function preparedGoods(goods, { sortedByAlphabet, reversed, sortedByLength }) {
+  const sortedGoods = [...goods];
 
   if (sortedByAlphabet) {
-    preparedGoods.sort();
+    sortedGoods.sort();
   }
 
   if (sortedByLength) {
-    preparedGoods.sort((good1, good2) => good1.length - good2.length);
+    sortedGoods.sort((good1, good2) => good1.length - good2.length);
   }
 
   if (reversed) {
-    preparedGoods.reverse();
+    sortedGoods.reverse();
   }
 
-  return preparedGoods;
+  return sortedGoods;
 }
 
 export const App = () => {
@@ -41,7 +38,7 @@ export const App = () => {
   const [reversed, setReversed] = useState(false);
   const [sortedByLength, setSortedByLength] = useState(false);
 
-  const visibleGoods = getPreparedGoods(goodsFromServer, {
+  const visibleGoods = preparedGoods(goodsFromServer, {
     sortedByAlphabet,
     reversed,
     sortedByLength,
@@ -52,7 +49,7 @@ export const App = () => {
       <div className="buttons">
         <button
           type="button"
-          className={`button is-info ${sortedByAlphabet ? '' : 'is-light'}`}
+          className={`button is-info${sortedByAlphabet ? '' : ' is-light'}`}
           onClick={() => {
             setSortedAlphabet(true);
             setSortedByLength(false);
@@ -63,7 +60,7 @@ export const App = () => {
 
         <button
           type="button"
-          className={`button is-warning ${sortedByLength ? '' : 'is-light'}`}
+          className={`button is-warning${sortedByLength ? '' : ' is-light'}`}
           onClick={() => {
             setSortedAlphabet(false);
             setSortedByLength(true);
@@ -74,7 +71,7 @@ export const App = () => {
 
         <button
           type="button"
-          className={`button is-success ${reversed ? '' : 'is-light'}`}
+          className={`button is-success${reversed ? '' : ' is-light'}`}
           onClick={() => {
             setReversed(prev => !prev);
           }}
